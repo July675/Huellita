@@ -29,6 +29,19 @@ List<Especie> listaEspecies = (List<Especie>) request.getAttribute("listaEspecie
 
 <body>
 
+	<%
+	String error = request.getParameter("error");
+	%>
+
+	<%
+	if (error != null) {
+	%>
+	<div class="mensaje-error">
+		<%=error%>
+	</div>
+	<%
+	}
+	%>
 	<header class="encabezado">
 
 		<a href="${pageContext.request.contextPath}/index.jsp" class="logo">
@@ -38,8 +51,7 @@ List<Especie> listaEspecies = (List<Especie>) request.getAttribute("listaEspecie
 			<a href="${pageContext.request.contextPath}/index.jsp">Inicio</a> <a
 				href="${pageContext.request.contextPath}/SvAnimalListar?vista=admin">Animales</a>
 
-			<a
-				href="${pageContext.request.contextPath}/SvRefugioListar?vista=admin">Refugios</a>
+			<a href="${pageContext.request.contextPath}/SvRefugioListar">Refugios</a>
 
 			<a
 				href="${pageContext.request.contextPath}/SvEspecieListar?vista=admin">Especies</a>
@@ -64,7 +76,7 @@ List<Especie> listaEspecies = (List<Especie>) request.getAttribute("listaEspecie
 			<h2>Registrar un animal</h2>
 
 			<form action="${pageContext.request.contextPath}/SvAnimalCrear"
-				method="POST" class="formulario-admin">
+				method="POST" class="formulario-admin" enctype="multipart/form-data">
 
 				<label>Nombre:</label> <input type="text" name="nombre" required>
 
@@ -113,8 +125,8 @@ List<Especie> listaEspecies = (List<Especie>) request.getAttribute("listaEspecie
 					}
 					%>
 
-				</select>
-
+				</select> <label>Foto del animal:</label> <input type="file" name="foto"
+					accept="image/*">
 				<button type="submit" class="boton-principal">Registrar
 					animal</button>
 
@@ -170,10 +182,19 @@ List<Especie> listaEspecies = (List<Especie>) request.getAttribute("listaEspecie
 
 							<td class="acciones"><a class="boton-editar"
 								href="${pageContext.request.contextPath}/SvAnimalEditar?id=<%= animal.getIdAnimal() %>">
-									Editar </a> <a class="boton-eliminar"
-								href="${pageContext.request.contextPath}/SvAnimalEliminar?id=<%= animal.getIdAnimal() %>"
-								onclick="return confirm('¿Estás seguro de eliminar este animal?');">
-									Eliminar </a></td>
+									Editar </a>
+								<form
+									action="${pageContext.request.contextPath}/SvAnimalEliminar"
+									method="POST" style="display: inline;">
+
+									<input type="hidden" name="id"
+										value="<%=animal.getIdAnimal()%>">
+
+									<button type="submit" class="boton-eliminar"
+										onclick="return confirm('¿Estás seguro de eliminar este animal?');">
+										Eliminar</button>
+
+								</form></td>
 
 						</tr>
 
@@ -190,6 +211,7 @@ List<Especie> listaEspecies = (List<Especie>) request.getAttribute("listaEspecie
 						<%
 						}
 						%>
+
 
 					</tbody>
 

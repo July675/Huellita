@@ -2,6 +2,8 @@
 package com.app.servlets;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import com.app.logica.ControladoraLogica;
 
@@ -13,18 +15,34 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/SvEspecieEliminar")
 public class SvEspecieEliminar extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
 
     ControladoraLogica control = new ControladoraLogica();
 
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         int id = Integer.parseInt(request.getParameter("id"));
 
-        control.eliminarEspecie(id);
+        try {
+            control.eliminarEspecie(id);
 
-        response.sendRedirect(request.getContextPath() + "/SvEspecieListar");
+            response.sendRedirect(
+                request.getContextPath() + "/SvEspecieListar?vista=admin"
+            );
+
+        } catch (Exception e) {
+
+            String error = URLEncoder.encode(
+                e.getMessage(),
+                StandardCharsets.UTF_8
+            );
+
+            response.sendRedirect(
+                request.getContextPath() + "/SvEspecieListar?&error=" + error
+            );
+        }
     }
 }

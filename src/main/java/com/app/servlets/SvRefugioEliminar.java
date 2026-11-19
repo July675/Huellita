@@ -1,7 +1,8 @@
-
 package com.app.servlets;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import com.app.logica.ControladoraLogica;
 
@@ -13,20 +14,27 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/SvRefugioEliminar")
 public class SvRefugioEliminar extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
-    ControladoraLogica control = new ControladoraLogica();
+	private static final long serialVersionUID = 1L;
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	ControladoraLogica control = new ControladoraLogica();
 
-        int id = Integer.parseInt(request.getParameter("id"));
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        control.eliminarRefugio(id);
+		int id = Integer.parseInt(request.getParameter("id"));
 
-        response.sendRedirect(
-            request.getContextPath() + "/SvRefugioListar"
-        );
-    }
+		try {
+			control.eliminarRefugio(id);
+
+			response.sendRedirect(request.getContextPath() + "/SvRefugioListar");
+
+		} catch (Exception e) {
+
+			String error = URLEncoder.encode(e.getMessage(), StandardCharsets.UTF_8);
+
+			response.sendRedirect(request.getContextPath() + "/SvRefugioListar?&error=" + error);
+		}
+	}
 }

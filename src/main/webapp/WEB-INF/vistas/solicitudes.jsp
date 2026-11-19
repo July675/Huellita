@@ -74,10 +74,18 @@ List<SolicitudAdopcion> listaSolicitudes = (List<SolicitudAdopcion>) request.get
 							<td><%=solicitud.getFechaSolicitud() != null ? solicitud.getFechaSolicitud() : "Sin fecha"%></td>
 							<td class="acciones"><a class="boton-editar"
 								href="${pageContext.request.contextPath}/SvSolicitudEditar?id=<%= solicitud.getId_solicitud() %>">Editar</a>
-								<a class="boton-eliminar"
-								href="${pageContext.request.contextPath}/SvSolicitudEliminar?id=<%= solicitud.getId_solicitud() %>"
-								onclick="return confirm('¿Seguro que querés eliminar esta solicitud?');">Eliminar</a>
-							</td>
+								<form
+									action="${pageContext.request.contextPath}/SvSolicitudEliminar"
+									method="POST" style="display: inline;">
+
+									<input type="hidden" name="id"
+										value="<%=solicitud.getId_solicitud()%>">
+
+									<button type="submit" class="boton-eliminar"
+										onclick="return confirm('¿Seguro que querés eliminar esta solicitud?');">
+										Eliminar</button>
+
+								</form></td>
 						</tr>
 						<%
 						}

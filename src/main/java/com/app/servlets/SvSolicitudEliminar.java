@@ -1,4 +1,3 @@
-
 package com.app.servlets;
 
 import java.io.IOException;
@@ -13,19 +12,19 @@ import jakarta.servlet.http.HttpServletResponse;
 
 @WebServlet("/SvSolicitudEliminar")
 public class SvSolicitudEliminar extends HttpServlet {
-    private static final long serialVersionUID = 1L;
 
-    ControladoraLogica control = new ControladoraLogica();
+	private static final long serialVersionUID = 1L;
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+	ControladoraLogica control = new ControladoraLogica();
 
-        int id = Integer.parseInt(request.getParameter("id"));
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 
-        control.eliminarSolicitud(id);
+		int id = Integer.parseInt(request.getParameter("id"));
 
-        response.sendRedirect(
-                request.getContextPath() + "/SvSolicitudListar");
-    }
+		control.eliminarSolicitud(id);
+
+		response.sendRedirect(request.getContextPath() + "/SvSolicitudListar");
+	}
 }

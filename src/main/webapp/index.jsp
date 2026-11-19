@@ -210,13 +210,6 @@ if (Boolean.TRUE.equals(session.getAttribute("solicitudEnviada"))) {
 			<div class="invitacion-icono">🐶 💕 🐱</div>
 		</section>
 
-		<!-- ACCESO ADMINISTRADOR PROVISIONAL -->
-		<section class="acceso-admin" id="acceso-admin">
-			<p>¿Formás parte del equipo de Huellitas?</p>
-			<span>El acceso al panel de administración estará disponible
-				próximamente.</span>
-		</section>
-
 	</main>
 
 	<footer>

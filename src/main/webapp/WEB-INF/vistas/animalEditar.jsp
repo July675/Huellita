@@ -52,7 +52,14 @@ List<Especie> listaEspecies = (List<Especie>) request.getAttribute("listaEspecie
 	</header>
 
 	<main class="contenedor-admin">
-
+		<%
+		if ("animal-con-solicitudes".equals(request.getParameter("error"))) {
+		%>
+		<div class="mensaje-error">No se puede eliminar este animal
+			porque tiene solicitudes de adopción asociadas.</div>
+		<%
+		}
+		%>
 		<section class="titulo-admin">
 
 			<span>GESTIÓN DE HUELLITAS</span>
@@ -64,93 +71,69 @@ List<Especie> listaEspecies = (List<Especie>) request.getAttribute("listaEspecie
 		</section>
 
 		<%
-
 		if (animal != null) {
-
 		%>
 
 		<section class="tarjeta-admin">
 
 			<h2>Editar animal</h2>
 
-			<form action="${pageContext.request.contextPath}/SvAnimalActualizar"
-				method="POST" class="formulario-admin">
+			<form action="${pageContext.request.contextPath}/SvAnimalEditar"
+				method="POST" class="formulario-admin" enctype="multipart/form-data">
 
 				<input type="hidden" name="id" value="<%=animal.getIdAnimal()%>">
 
-				<label>Nombre:</label>
-				<input type="text" name="nombre"
-					value="<%=animal.getNombre()%>" required>
-
-				<label>Edad:</label>
+				<label>Nombre:</label> <input type="text" name="nombre"
+					value="<%=animal.getNombre()%>" required> <label>Edad:</label>
 				<input type="number" name="edad" min="0"
-					value="<%=animal.getEdad()%>" required>
-
-				<label>Sexo:</label>
+					value="<%=animal.getEdad()%>" required> <label>Sexo:</label>
 				<select name="sexo" required>
 					<option value="">Seleccioná el sexo</option>
 					<option value="Macho"
 						<%="Macho".equals(animal.getSexo()) ? "selected" : ""%>>
-						Macho
-					</option>
+						Macho</option>
 					<option value="Hembra"
 						<%="Hembra".equals(animal.getSexo()) ? "selected" : ""%>>
-						Hembra
-					</option>
-				</select>
-
-				<label>Estado:</label>
-				<select name="estado" required>
+						Hembra</option>
+				</select> <label>Estado:</label> <select name="estado" required>
 					<option value="">Seleccioná el estado</option>
 					<option value="Disponible"
 						<%="Disponible".equals(animal.getEstado()) ? "selected" : ""%>>
-						Disponible
-					</option>
+						Disponible</option>
 					<option value="Adoptado"
 						<%="Adoptado".equals(animal.getEstado()) ? "selected" : ""%>>
-						Adoptado
-					</option>
-				</select>
-
-				<label>Refugio:</label>
-				<select name="idRefugio" required>
+						Adoptado</option>
+				</select> <label>Refugio:</label> <select name="idRefugio" required>
 					<option value="">Seleccioná un refugio</option>
 					<%
 					if (listaRefugios != null) {
 						for (Refugio refugio : listaRefugios) {
 					%>
 					<option value="<%=refugio.getId_Refugio()%>"
-						<%=animal.getRefugio() != null
-								&& animal.getRefugio().getId_Refugio() == refugio.getId_Refugio()
-										? "selected"
-										: ""%>>
+						<%=animal.getRefugio() != null && animal.getRefugio().getId_Refugio() == refugio.getId_Refugio() ? "selected"
+		: ""%>>
 						<%=refugio.getNombre()%>
 					</option>
 					<%
-						}
+					}
 					}
 					%>
-				</select>
-
-				<label>Especie:</label>
-				<select name="idEspecie" required>
+				</select> <label>Especie:</label> <select name="idEspecie" required>
 					<option value="">Seleccioná una especie</option>
 					<%
 					if (listaEspecies != null) {
 						for (Especie especie : listaEspecies) {
 					%>
 					<option value="<%=especie.getIdEspecie()%>"
-						<%=animal.getEspecie() != null
-								&& animal.getEspecie().getIdEspecie() == especie.getIdEspecie()
-										? "selected"
-										: ""%>>
+						<%=animal.getEspecie() != null && animal.getEspecie().getIdEspecie() == especie.getIdEspecie() ? "selected" : ""%>>
 						<%=especie.getNombre()%>
 					</option>
 					<%
-						}
+					}
 					}
 					%>
-				</select>
+				</select> <label>Foto del animal:</label> <input type="file" name="foto"
+					accept="image/*">
 
 				<button type="submit" class="boton-principal">Guardar
 					cambios</button>
@@ -163,17 +146,13 @@ List<Especie> listaEspecies = (List<Especie>) request.getAttribute("listaEspecie
 		</section>
 
 		<%
-
 		} else {
-
 		%>
 
 		<p class="mensaje-vacio">No se encontró el animal solicitado.</p>
 
 		<%
-
 		}
-
 		%>
 
 	</main>

@@ -19,7 +19,19 @@ List<Refugio> listaRefugios = (List<Refugio>) request.getAttribute("listaRefugio
 </head>
 
 <body>
+	<%
+	String error = request.getParameter("error");
+	%>
 
+	<%
+	if (error != null) {
+	%>
+	<div class="mensaje-error">
+		<%=error%>
+	</div>
+	<%
+	}
+	%>
 	<header class="encabezado">
 
 		<a href="${pageContext.request.contextPath}/index.jsp" class="logo">
@@ -106,10 +118,19 @@ List<Refugio> listaRefugios = (List<Refugio>) request.getAttribute("listaRefugio
 
 							<td class="acciones"><a class="boton-editar"
 								href="${pageContext.request.contextPath}/SvRefugioEditar?id=<%= refugio.getId_Refugio() %>">
-									Editar </a> <a class="boton-eliminar"
-								href="${pageContext.request.contextPath}/SvRefugioEliminar?id=<%= refugio.getId_Refugio() %>"
-								onclick="return confirm('¿Estás seguro de eliminar este refugio?');">
-									Eliminar </a></td>
+									Editar </a>
+								<form
+									action="${pageContext.request.contextPath}/SvRefugioEliminar"
+									method="POST" style="display: inline;">
+
+									<input type="hidden" name="id"
+										value="<%=refugio.getId_Refugio()%>">
+
+									<button type="submit" class="boton-eliminar"
+										onclick="return confirm('¿Estás seguro de eliminar este refugio?');">
+										Eliminar</button>
+
+								</form></td>
 						</tr>
 
 						<%
