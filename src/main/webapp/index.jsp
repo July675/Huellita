@@ -19,7 +19,7 @@
 		<nav>
 			<a href="${pageContext.request.contextPath}/index.jsp">Inicio</a> <a
 				href="${pageContext.request.contextPath}/SvAnimalListar">Animales</a>
-			<a href="#adoptar">Cómo adoptar</a> <a href="#nosotros">Nosotros</a>
+			<a href="#adoptar">Cómo adoptar</a> <a href="#nosotros">Nosotros</a> <a href="${pageContext.request.contextPath}/guia.jsp">Guía de estudio</a>
 		</nav>
 
 		<a href="${pageContext.request.contextPath}/admin.jsp"
