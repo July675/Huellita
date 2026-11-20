@@ -17,7 +17,6 @@
 			🐾 Huellitas </a>
 
 		<nav>
-			<a href="${pageContext.request.contextPath}/guia.jsp">Guía de estudio</a>
 			<a href="${pageContext.request.contextPath}/index.jsp">Volver al
 				inicio</a>
 		</nav>
